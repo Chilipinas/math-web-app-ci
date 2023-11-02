@@ -1,0 +1,14 @@
+stages:
+  - build
+  - test
+
+
+pytest:
+  stage: test
+  image: python:3.10
+  script:
+    - pip install -r requirements.txt
+    - pytest --junitxml=junit.xml tests/unit_tests
+  artifacts:
+    reports:
+      junit: junit.xml
