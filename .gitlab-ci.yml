@@ -21,7 +21,7 @@ pytest:
 .build-docker-kaniko:
   stage: build
   image:
-    name: gcr.io/kaniko-project/executor:v1.17.0
+    name: gcr.io/kaniko-project/executor:debug
     entrypoint: [ "" ]
   extends: .docker-registry-auth
   script:
