@@ -1,6 +1,6 @@
 stages:
-  - build
   - test
+  - build
 
 
 pytest:
@@ -12,3 +12,30 @@ pytest:
   artifacts:
     reports:
       junit: junit.xml
+
+.docker-registry-auth:
+    before_script:
+        - mkdir -p /kaniko/.docker
+        - echo "{\"auths\":{\"${CI_REGISTRY}\":{\"auth\":\"$(printf "%s:%s" "${CI_REGISTRY_USER}" "${CI_REGISTRY_PASSWORD}" | base64 | tr -d '\n')\"}}}" > /kaniko/.docker/config.json
+
+.build-docker-kaniko:
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:v1.17.0
+    entrypoint: [ "" ]
+  extends: .docker-registry-auth
+  script:
+    - >-
+      /kaniko/executor
+      --context "${CONTEXT_PATH}"
+      --dockerfile "${DOCKERFILE_PATH}"
+      --cache-copy-layers
+      --destination "${CI_REGISTRY_IMAGE}/$IMAGE_NAME:$IMAGE_TAG"
+      --cache=true
+
+build-docker:
+  extends: .build-docker-kaniko
+  variables:
+    DOCKERFILE_PATH: Dockerfile
+    CONTEXT_PATH: ${CI_PROJECT_DIR}
+    IMAGE_TAG: 0.0.$CI_PIPELINE_IID
