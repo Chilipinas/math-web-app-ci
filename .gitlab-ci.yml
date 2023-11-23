@@ -48,6 +48,7 @@ stages:
         - eval $(ssh-agent -s)
         - mkdir -p ~/.ssh
         - ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 -N ''
+        - echo "$SSH_KNOWN_HOSTS" >> ~/.ssh/known_hosts
         - chmod 700 ~/.ssh
 
 deploy-app:
