@@ -28,3 +28,7 @@
    4. selemium - https://github.com/webdriverio/selenium-standalone
 2. В репозитории организовать конвейер CI с запуском Юнит тестов, упаковкой приложения в архив.
 3. Организовать CD конвейр с разворачиванием приложения, протестировать приложение фуникцональными тестами (автоматически при развертке)
+
+# Задание 2
+1. Реализовать деплой приложения, использя docker-compose файл
+2. Реализовать стратегию деплоя - blue green. Пример взять [отсюда compose файл](https://github.com/antonaleks/ya-praktikum-app/blob/a917aad29b4113a92fedb7eea95f39819286a4c0/docker-compose.yml#L4) и [отсюда sh файл](https://github.com/antonaleks/ya-praktikum-app/blob/a917aad29b4113a92fedb7eea95f39819286a4c0/backend/deploy_blue_green.sh#L2)
