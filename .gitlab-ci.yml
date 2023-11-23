@@ -3,6 +3,10 @@ stages:
   - build
   - deploy
 
+variables:
+    IMAGE_NAME: web_calculator
+    IMAGE_TAG: 0.0.$CI_PIPELINE_IID
+
 
 .pytest:
   stage: test
@@ -39,8 +43,6 @@ stages:
   variables:
     DOCKERFILE_PATH: Dockerfile
     CONTEXT_PATH: ${CI_PROJECT_DIR}
-    IMAGE_NAME: web_calculator
-    IMAGE_TAG: 0.0.$CI_PIPELINE_IID
   
 .ssh-connection-from-docker: 
     before_script:
@@ -56,5 +58,6 @@ deploy-app:
   image: docker:24.0.7-dind-alpine3.18
   extends: .ssh-connection-from-docker 
   script: 
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker context create docker_lab --docker "host=ssh://ip172-18-0-45-clfje1csnmng00aumgh0@direct.labs.play-with-docker.com"
-    - docker --context docker_lab run -d -p 80:80 nginx
+    - docker --context docker_lab run -d -p 5000:5000 ${CI_REGISTRY_IMAGE}/$IMAGE_NAME:0.0.7
