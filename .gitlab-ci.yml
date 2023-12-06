@@ -53,7 +53,7 @@ build-docker:
     - name: ${CI_REGISTRY_IMAGE}/web_calculator:0.0.$CI_PIPELINE_IID
       alias: web-app
   script:
-    - newman run Postman_Collections/postman-collection.json --env-var "baseUrl=web-app:5000" --reporters cli,html --reporter-html-export test-report.html
+    - newman run postman_collections/postman_collection.json --env-var "baseUrl=web-app:5000" --reporters cli,html --reporter-html-export test-report.html
   artifacts:
     paths:
       - ./newman/report.xml
