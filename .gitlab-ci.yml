@@ -43,7 +43,7 @@ build-docker:
     IMAGE_NAME: web_calculator
     IMAGE_TAG: 0.0.$CI_PIPELINE_IID
 
-.postman_tests:
+postman_tests:
   stage: func_test
   image:
     name: postman/newman:alpine
