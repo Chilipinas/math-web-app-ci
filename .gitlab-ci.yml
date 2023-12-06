@@ -3,9 +3,6 @@ stages:
   - build
   - func_test
 
-variables:
-    IMAGE_NAME: web_calculator
-    IMAGE_TAG: 0.0.$CI_PIPELINE_IID
 
 
 pytest:
@@ -43,8 +40,10 @@ build-docker:
   variables:
     DOCKERFILE_PATH: Dockerfile
     CONTEXT_PATH: ${CI_PROJECT_DIR}
+    IMAGE_NAME: web_calculator
+    IMAGE_TAG: 0.0.$CI_PIPELINE_IID
 
-postman_tests:
+.postman_tests:
   stage: func_test
   image:
     name: postman/newman:alpine
@@ -55,3 +54,7 @@ postman_tests:
       alias: web-app
   script:
     - newman run Postman_Collections/postman-collection.json --env-var "baseUrl=web-app:5000" --reporters cli,html --reporter-html-export test-report.html
+  artifacts:
+    paths:
+      - ./newman/report.xml
+    expire_in: 1 week
