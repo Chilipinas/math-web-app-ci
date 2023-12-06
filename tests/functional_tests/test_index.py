@@ -1,36 +1,24 @@
-from selenium import webdriver
-import pytest
-import os
+import requests
 
-from selenium.webdriver.common.by import By
+class TestCalc:
+    base_url = "http://127.0.0.1:5000"
 
-#chrome_driver = "C:/Users/IIoT_Lab/PycharmProjects/flaskProject/tests/functional_tests/yandexdriver.exe" if "ChromeWebDriver" not in os.environ.keys() else os.path.join(
-#    os.environ["ChromeWebDriver"], 'chromedriver.exe')
-edge_driver = "C:/Users/evgen/Downloads/edgedriver_win32/msedgedriver.exe" if "EdgeWebDriver" not in os.environ.keys() else os.path.join(
-    os.environ["EdgeWebDriver"], 'msedgedriver.exe')
+    def test_add(self):
+        response = requests.get(f"{self.base_url}/add/5&5")
+        assert response.status_code == 200
+        assert response.text == "Add 5 and 5. Got 10!"
 
+    def test_subtract(self):
+        response = requests.get(f"{self.base_url}/subtract/5&5")
+        assert response.status_code == 200
+        assert response.text == "Subtract 5 and 5. Got 0!"
 
+    def test_multiply(self):
+        response = requests.get(f"{self.base_url}/multiply/5&5")
+        assert response.status_code == 200
+        assert response.text == "Multiply 5 and 5. Got 25!"
 
-class TestBackend:
-
-    def setup(self):
-        self.driver = webdriver.Edge(edge_driver)
-
-    def test_add(self, url):
-        self.driver.get(f'{url}/add/1&2')
-        assert "Add 1 and 2. Got 3!" == self.driver.find_element(By.TAG_NAME, "body").text
-
-    def test_multiply(self, url):
-        self.driver.get(f'{url}/multiply/2&2')
-        assert "Multiply 2 and 2. Got 4!" == self.driver.find_element(By.TAG_NAME, "body").text
-
-    def test_divide(self, url):
-        self.driver.get(f'{url}/divide/10&2')
-        assert "Divide 10 and 2. Got 5.0!" == self.driver.find_element(By.TAG_NAME, "body").text
-
-    def test_subtract(self, url):
-        self.driver.get(f'{url}/subtract/9&2')
-        assert "Subtract 9 and 2. Got 7!" == self.driver.find_element(By.TAG_NAME, "body").text
-
-    def teardown(self):
-        self.driver.quit()
+    def test_divide(self):
+        response = requests.get(f"{self.base_url}/divide/5&5")
+        assert response.status_code == 200
+        assert response.text == "Divide 5 and 5. Got 1!"
