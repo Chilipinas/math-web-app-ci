@@ -30,15 +30,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:5000/add/5&5",
+					"raw": "http://{{baseUrl}}/add/5&5",
 					"protocol": "http",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"{{baseUrl}}"
 					],
-					"port": "5000",
 					"path": [
 						"add",
 						"5&5"
@@ -71,15 +67,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:5000/multiply/5&5",
+					"raw": "http://{{baseUrl}}/multiply/5&5",
 					"protocol": "http",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"{{baseUrl}}"
 					],
-					"port": "5000",
 					"path": [
 						"multiply",
 						"5&5"
@@ -112,15 +104,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:5000/subtract/5&5",
+					"raw": "http://{{baseUrl}}/subtract/5&5",
 					"protocol": "http",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"{{baseUrl}}"
 					],
-					"port": "5000",
 					"path": [
 						"subtract",
 						"5&5"
@@ -153,15 +141,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:5000/divide/5&5",
+					"raw": "http://{{baseUrl}}/divide/5&5",
 					"protocol": "http",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"{{baseUrl}}"
 					],
-					"port": "5000",
 					"path": [
 						"divide",
 						"5&5"
