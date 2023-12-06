@@ -4,14 +4,17 @@ import os
 
 from selenium.webdriver.common.by import By
 
-chrome_driver = "C:/Users/IIoT_Lab/PycharmProjects/flaskProject/tests/functional_tests/yandexdriver.exe" if "ChromeWebDriver" not in os.environ.keys() else os.path.join(
-    os.environ["ChromeWebDriver"], 'chromedriver.exe')
+#chrome_driver = "C:/Users/IIoT_Lab/PycharmProjects/flaskProject/tests/functional_tests/yandexdriver.exe" if "ChromeWebDriver" not in os.environ.keys() else os.path.join(
+#    os.environ["ChromeWebDriver"], 'chromedriver.exe')
+edge_driver = "C:/Users/evgen/Downloads/edgedriver_win32/msedgedriver.exe" if "EdgeWebDriver" not in os.environ.keys() else os.path.join(
+    os.environ["EdgeWebDriver"], 'msedgedriver.exe')
+
 
 
 class TestBackend:
 
     def setup(self):
-        self.driver = webdriver.Chrome(chrome_driver)
+        self.driver = webdriver.Edge(edge_driver)
 
     def test_add(self, url):
         self.driver.get(f'{url}/add/1&2')
