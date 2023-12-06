@@ -1,7 +1,7 @@
 stages:
   - test
   - build
-  - deploy
+  - func_test
 
 variables:
     IMAGE_NAME: web_calculator
@@ -43,24 +43,15 @@ build-docker:
   variables:
     DOCKERFILE_PATH: Dockerfile
     CONTEXT_PATH: ${CI_PROJECT_DIR}
-  
-.ssh-connection-from-docker: 
-    before_script:
-        - apk add openssh-client bash
-        - eval $(ssh-agent -s)
-        - mkdir -p ~/.ssh
-        - ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 -N ''
-        - echo "$SSH_KNOWN_HOSTS" >> ~/.ssh/known_hosts
-        - chmod 700 ~/.ssh
 
-deploy-app:
-  stage: deploy
-  image: docker:24.0.7-dind-alpine3.18
-  extends: .ssh-connection-from-docker 
-  environment:
-    name: staging
-    url: $APP_URL
-  script: 
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker context create docker_lab --docker "$DEPLOY_URL"
-    - docker --context docker_lab run -d -p 5000:5000 --name web_calc ${CI_REGISTRY_IMAGE}/$IMAGE_NAME:$IMAGE_TAG
+postman_tests:
+  stage: func_test
+  image:
+    name: postman/newman:alpine
+    entrypoint: [""]
+  extends: .docker-registry-auth
+  services:
+    - name: ${CI_REGISTRY_IMAGE}/web_calculator:0.0.$CI_PIPELINE_IID
+      alias: web-app
+  script:
+    - newman run Postman_Collections/postman-collection.json --env-var "baseUrl=web-app:5000" --reporters cli,html --reporter-html-export test-report.html
