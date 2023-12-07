@@ -55,7 +55,7 @@ postman api testing:
   script:
     - npm install -g newman
     - npm update
-    - newman run postman_collections/postman_collection.json --env-var "baseUrl=web-app:5000" -r xml --reporter-xml-export ./newman/report.xml
+    - newman run postman_collections/postman_collection.json --env-var "baseUrl=web-app:5000" -r cli,junit --reporter-junit-export ./newman/report.xml
   artifacts:
     paths:
       - ./newman/report.xml
