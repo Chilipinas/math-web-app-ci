@@ -55,6 +55,8 @@ postman api testing:
   before_script:
   - npm install -g newman
   script:
+    - npm install -g newman
+    - npm install -g newman-reporter-xml
     - npm update
     - newman run postman_collections/postman_collection.json --env-var "baseUrl=web-app:5000" -r xml --reporter-xml-export ./newman/report.xml
     - cat ./newman/report.xml
