@@ -53,10 +53,12 @@ postman api testing:
     - name: ${CI_REGISTRY_IMAGE}/web_calculator:0.0.$CI_PIPELINE_IID
       alias: web-app
   script:
+    - npm install -g newman
     - npm update
     - newman run postman_collections/postman_collection.json --env-var "baseUrl=web-app:5000" -r cli,junit --reporter-junit-export ./newman/report.xml
+    - cat ./newman/report.xml
   artifacts:
     paths:
-      - ./newman/report.xml
+      - ./newman
     expire_in: 1 week
 
