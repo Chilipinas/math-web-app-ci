@@ -93,4 +93,4 @@ deploy-app:
   extends: .ssh-connection-from-docker
   script:
     - bash ./deploy_blue_green.sh
-    - docker --context sausage-store ps
+    - docker --context calculator-web-app ps
