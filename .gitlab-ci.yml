@@ -8,7 +8,7 @@ variables:
   IMAGE_NAME: web_calculator
   IMAGE_TAG: 0.0.$CI_PIPELINE_IID
 
-.pytest:
+pytest:
   stage: test
   image: python:3.10
   script:
@@ -38,14 +38,14 @@ variables:
       --destination "${CI_REGISTRY_IMAGE}/$IMAGE_NAME:$IMAGE_TAG"
       --cache=true
 
-.build-docker:
+build-docker:
   extends: .build-docker-kaniko
   variables:
     DOCKERFILE_PATH: Dockerfile
     CONTEXT_PATH: ${CI_PROJECT_DIR}
 
 
-.postman api testing:
+postman api testing:
   stage: func_test
   image:
     name: postman/newman
