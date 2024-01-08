@@ -73,13 +73,13 @@ postman api testing:
         - echo "$SSH_KNOWN_HOSTS" >> ~/.ssh/known_hosts
         - chmod 700 ~/.ssh
         - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-        - docker context create calculator-web-app --docker "$DEPLOY_URL""
+        - docker context create calculator-web-app --docker "$DEPLOY_URL"
         - docker context use calculator-web-app
         - |
           cat > .env <<EOF
           CI_REGISTRY_IMAGE=${CI_REGISTRY_IMAGE}
-          DOCKER_IMAGE_NAME=$IMAGE_NAME
-          IMAGE_VERSION=$IMAGE_TAG
+          DOCKER_IMAGE_NAME=${IMAGE_NAME}
+          IMAGE_VERSION=${IMAGE_TAG}
           PWD_URL={$PWD_URL}
           EOF
 
@@ -94,6 +94,6 @@ deploy-app:
   when: manual
   script:
     - bash ./deploy_blue_green.sh
-    - docker --context sausage-store ps
+    - docker --context calculator-web-app ps
 
 
