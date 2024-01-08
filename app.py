@@ -30,7 +30,9 @@ def subtract(a, b):
 def divide(a, b):
     return f"Divide {a} and {b}. Got {calc.divide(a, b)}!"
 
+@app.route("/health")
+def health():
+    return f"Stayin' Alive"
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000)
-
