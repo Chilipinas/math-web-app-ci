@@ -4,6 +4,9 @@ stages:
   - func_test
   - deploy
 
+variables:
+  IMAGE_NAME: web_calculator
+  IMAGE_TAG: 0.0.$CI_PIPELINE_IID
 
 .pytest:
   stage: test
@@ -40,8 +43,7 @@ stages:
   variables:
     DOCKERFILE_PATH: Dockerfile
     CONTEXT_PATH: ${CI_PROJECT_DIR}
-    IMAGE_NAME: web_calculator
-    IMAGE_TAG: 0.0.$CI_PIPELINE_IID
+
 
 .postman api testing:
   stage: func_test
