@@ -91,7 +91,6 @@ deploy-app:
   stage: deploy
   image: docker:24.0.7-dind-alpine3.18
   extends: .ssh-connection-from-docker
-  when: manual
   script:
     - bash ./deploy_blue_green.sh
     - docker --context sausage-store ps
