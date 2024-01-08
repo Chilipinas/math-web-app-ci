@@ -80,7 +80,7 @@ postman api testing:
         CI_REGISTRY_IMAGE=${CI_REGISTRY_IMAGE}
         DOCKER_IMAGE_NAME=$IMAGE_NAME
         IMAGE_VERSION=$IMAGE_TAG
-        PWD_URL={$PWD_URL}
+        PWD_URL=$PWD_URL
         EOF
 #      - docker --context calculator-web-app run -d -p 5000:5000 --name web_calc ${CI_REGISTRY_IMAGE}/$IMAGE_NAME:$IMAGE_TAG
 
